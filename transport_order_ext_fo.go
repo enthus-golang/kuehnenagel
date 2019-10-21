@@ -1,5 +1,7 @@
 package kuehnenagel
 
+const MessageVersion = "01.40"
+
 type TransportOrderExtFO struct {
 	Envelope Envelope
 	Message  []Message
