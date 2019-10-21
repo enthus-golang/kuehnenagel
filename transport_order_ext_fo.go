@@ -42,7 +42,7 @@ type TransportOrderDate struct {
 }
 
 type TransportOrderShipment struct {
-	TransportOrderPosition string `validate:"required,max=5"`
+	TransportOrderPosition int    `validate:"required"`
 	ShipmentNumber         string `validate:"required,max=35"`
 	ShipmentDate           ShipmentDate
 	TermsOfDelivery        TermsOfDelivery
