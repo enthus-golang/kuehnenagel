@@ -78,15 +78,16 @@ type TermsOfDelivery struct {
 }
 
 type ShipperAddress struct {
-	AddressID     string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Name1         string `validate:"required,max=35"`
-	Name2         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Street1       string `validate:"required,max=35"`
-	Street2       string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Country       string `validate:"required,max=3"`
-	Zip           string `validate:"required,max=9"`
-	City          string `validate:"required,max=35"`
-	ContactPerson string `xml:",omitempty" json:",omitempty" validate:"max=70"`
+	AddressID         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Name1             string `validate:"required,max=35"`
+	Name2             string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Street1           string `validate:"required,max=35"`
+	Street2           string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Country           string `validate:"required,max=3"`
+	Zip               string `validate:"required,max=9"`
+	City              string `validate:"required,max=35"`
+	CommunicationType string `xml:",omitempty" json:",omitempty" validate:"max=4"`
+	Communication     string `xml:",omitempty" json:",omitempty" validate:"max=70"`
 }
 
 type ConsigneeAddress struct {
