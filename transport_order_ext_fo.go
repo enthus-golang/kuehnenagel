@@ -1,6 +1,14 @@
 package kuehnenagel
 
-const MessageVersion = "01.40"
+type BarcodeQualifier string
+
+const (
+	MessageVersion = "01.40"
+
+	BarcodeIDS BarcodeQualifier = "IDS"
+	BarcodeKDN                  = "KDN"
+	BarcodeNVE                  = "NVE"
+)
 
 type TransportOrderExtFO struct {
 	Envelope Envelope
@@ -52,6 +60,7 @@ type TransportOrderShipment struct {
 	PickupOrderNumber      []string `xml:",omitempty" validate:"max=99,dive,max=35"`
 	ShipperAddress         ShipperAddress
 	ConsigneeAddress       ConsigneeAddress
+	AdditionalInformation  *AdditionalInformation
 	OtherAddress           []OtherAddress
 	ShipmentItem           []ShipmentItem
 	ShipmentTotal          ShipmentTotal
@@ -81,28 +90,40 @@ type ShipperAddress struct {
 }
 
 type ConsigneeAddress struct {
-	AddressID     string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Name1         string `validate:"required,max=35"`
-	Name2         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Street1       string `validate:"required,max=35"`
-	Street2       string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Country       string `validate:"required,max=3"`
-	Zip           string `validate:"required,max=9"`
-	City          string `validate:"required,max=35"`
-	ContactPerson string `xml:",omitempty" json:",omitempty" validate:"max=70"`
+	AddressID         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Name1             string `validate:"required,max=35"`
+	Name2             string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Street1           string `validate:"required,max=35"`
+	Street2           string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Country           string `validate:"required,max=3"`
+	Zip               string `validate:"required,max=9"`
+	City              string `validate:"required,max=35"`
+	CommunicationType string `xml:",omitempty" json:",omitempty" validate:"max=4"`
+	Communication     string `xml:",omitempty" json:",omitempty" validate:"max=70"`
+}
+
+type AdditionalInformation struct {
+	DeliveryDateIndicator    string                     `xml:",omitempty" validate:"max=4"`
+	DeliveryInstructionCoded []DeliveryInstructionCoded `validate:"dive"`
+}
+
+type DeliveryInstructionCoded struct {
+	DeliveryInstructionsCode string
+	DeliveryInstructionsText string `xml:",omitempty" validate:"max=70"`
 }
 
 type OtherAddress struct {
-	AddressType   string `validate:"required"`
-	AddressID     string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Name1         string `validate:"required,max=35"`
-	Name2         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Street1       string `validate:"required,max=35"`
-	Street2       string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	Country       string `validate:"required,max=3"`
-	Zip           string `validate:"required,max=9"`
-	City          string `validate:"required,max=35"`
-	ContactPerson string `xml:",omitempty" json:",omitempty" validate:"max=70"`
+	AddressType       string `validate:"required"`
+	AddressID         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Name1             string `validate:"required,max=35"`
+	Name2             string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Street1           string `validate:"required,max=35"`
+	Street2           string `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	Country           string `validate:"required,max=3"`
+	Zip               string `validate:"required,max=9"`
+	City              string `validate:"required,max=35"`
+	CommunicationType string `xml:",omitempty" json:",omitempty" validate:"max=4"`
+	Communication     string `xml:",omitempty" json:",omitempty" validate:"max=70"`
 }
 
 type ShipmentItem struct {
@@ -111,6 +132,9 @@ type ShipmentItem struct {
 	NumberOfPackagesOnPallet *NumberOfPackagesOnPallet
 	Dimensions               *Dimensions
 	GrossWeight              GrossWeight
+	Content                  string           `validate:"max=70"`
+	MarksAndNumbers          string           `xml:",omitempty" validate:"max=70"`
+	PackageBarcodes          []PackageBarcode `validate:"dive"`
 }
 
 type NumberOfPackages struct {
@@ -131,8 +155,13 @@ type Dimensions struct {
 }
 
 type GrossWeight struct {
-	Value       int    `validate:"required"`
-	MeasureUnit string `validate:"required,max=3"`
+	Value       float64 `validate:"required"`
+	MeasureUnit string  `validate:"required,max=3"`
+}
+
+type PackageBarcode struct {
+	BarcodeQualifier BarcodeQualifier `validate:"required,max=4"`
+	Barcode          string           `validate:"max=35"`
 }
 
 type ShipmentTotal struct {
