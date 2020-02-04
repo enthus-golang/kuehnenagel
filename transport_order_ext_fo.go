@@ -184,6 +184,6 @@ type TransportOrderTotal struct {
 }
 
 type TotalTransportOrderGrossWeight struct {
-	Value       int    `validate:"required"`
-	MeasureUnit string `validate:"required,max=3"`
+	Value       float64 `validate:"required"`
+	MeasureUnit string  `validate:"required,max=3"`
 }
