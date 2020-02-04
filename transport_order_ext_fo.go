@@ -16,12 +16,12 @@ type TransportOrderExtFO struct {
 }
 
 type Envelope struct {
-	SenderIdentification   string `validate:"required,max=13"`
-	ReceiverIdentification string `validate:"required,max=13"`
-	MessageType            string `validate:"required,max=10"`
-	MessageVersion         string `validate:"required"`
-	EnvelopeIdentification string `validate:"required,max=13"`
-	TransmissionDateTime   TransmissionDateTime
+	SenderIdentification   string               `validate:"required,max=13"`
+	ReceiverIdentification string               `validate:"required,max=13"`
+	MessageType            string               `validate:"required,max=10"`
+	MessageVersion         string               `validate:"required"`
+	EnvelopeIdentification string               `validate:"required,max=13"`
+	TransmissionDateTime   TransmissionDateTime `validate:"dive"`
 }
 
 type TransmissionDateTime struct {
@@ -36,12 +36,12 @@ type Message struct {
 }
 
 type TransportOrderHeader struct {
-	TransportOrderNumber string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	TransportOrderDate   TransportOrderDate
-	CustomerNumber       string `validate:"required,max=35"`
-	CustomerName         string `xml:",omitempty" json:",omitempty" validate:"max=35"`
-	EDIRecipient         string `xml:"EdiRecipient,omitempty" json:"EdiRecipient,omitempty" validate:"max=35"`
-	CodeList             string `xml:"Codelist,omitempty" json:"Codelist,omitempty" validate:"max=4"`
+	TransportOrderNumber string              `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	TransportOrderDate   *TransportOrderDate `validate:"dive"`
+	CustomerNumber       string              `validate:"required,max=35"`
+	CustomerName         string              `xml:",omitempty" json:",omitempty" validate:"max=35"`
+	EDIRecipient         string              `xml:"EdiRecipient,omitempty" json:"EdiRecipient,omitempty" validate:"max=35"`
+	CodeList             string              `xml:"Codelist,omitempty" json:"Codelist,omitempty" validate:"max=4"`
 }
 
 type TransportOrderDate struct {
