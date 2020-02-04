@@ -25,7 +25,7 @@ type Envelope struct {
 }
 
 type TransmissionDateTime struct {
-	Date string `validate:"required,len=9"`
+	Date string `validate:"required,len=10"`
 	Time string `xml:",omitempty" json:",omitempty"`
 }
 
