@@ -67,7 +67,7 @@ type TransportOrderShipment struct {
 }
 
 type ShipmentDate struct {
-	Date string `validate:"required,len=9"`
+	Date string `validate:"required,len=10"`
 	Time string `xml:",omitempty" json:",omitempty"`
 }
 
