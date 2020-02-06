@@ -104,8 +104,22 @@ type ConsigneeAddress struct {
 }
 
 type AdditionalInformation struct {
-	DeliveryDateIndicator    string                     `xml:",omitempty" validate:"max=4"`
-	DeliveryInstructionCoded []DeliveryInstructionCoded `validate:"dive"`
+	DeliveryDateIndicator       string `xml:",omitempty" validate:"max=4"`
+	DeliveryDateTimeFrom        *DeliveryDateTimeFrom
+	DeliveryDateTimeTo          *DeliveryDateTimeTo
+	DeliveryInstructionCoded    []DeliveryInstructionCoded `xml:",omitempty" validate:"dive"`
+	DeliveryInstructionFreeText []string                   `xml:",omitempty" validate:"dive,max=70"`
+	PickupInstructionFreeText   []string                   `xml:",omitempty" validate:"dive,max=70"`
+}
+
+type DeliveryDateTimeFrom struct {
+	Date string `validate:"required,len=10"`
+	Time string `xml:",omitempty" json:",omitempty"`
+}
+
+type DeliveryDateTimeTo struct {
+	Date string `validate:"required,len=10"`
+	Time string `xml:",omitempty" json:",omitempty"`
 }
 
 type DeliveryInstructionCoded struct {
