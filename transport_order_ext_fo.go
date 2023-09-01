@@ -21,7 +21,7 @@ type Envelope struct {
 	MessageType            string               `validate:"required,max=10"`
 	MessageVersion         string               `validate:"required"`
 	EnvelopeIdentification string               `validate:"required,max=13"`
-	TransmissionDateTime   TransmissionDateTime `validate:"dive"`
+	TransmissionDateTime   TransmissionDateTime `validate:"required"`
 }
 
 type TransmissionDateTime struct {
