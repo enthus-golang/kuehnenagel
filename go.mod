@@ -1,3 +1,3 @@
-module gitlab.com/mclgmbh/golang-pkg/kuehnenagel
+module github.com/enthus-golang/kuehnenagel
 
-go 1.13
+go 1.22
