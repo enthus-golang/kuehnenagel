@@ -6,8 +6,8 @@ const (
 	MessageVersion = "01.40"
 
 	BarcodeIDS BarcodeQualifier = "IDS"
-	BarcodeKDN                  = "KDN"
-	BarcodeNVE                  = "NVE"
+	BarcodeKDN BarcodeQualifier = "KDN"
+	BarcodeNVE BarcodeQualifier = "NVE"
 )
 
 type TransportOrderExtFO struct {
